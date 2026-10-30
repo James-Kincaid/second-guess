@@ -14,7 +14,11 @@ import { mulberry32 } from "./engine.js";
 // The library lives in vendor/ (filled by npm run vendor), so the page loads no code from a CDN.
 // The model weights still come from Hugging Face on first load; the browser caches them after that.
 export const MODEL_ID = "Xenova/gpt2";
-const MODEL_DTYPE = "q8"; // 8-bit weights: about a quarter the download of full precision
+// The 8-bit file in Xenova/gpt2 is onnx/decoder_model_merged_quantized.onnx (128 MB):
+// file name "decoder_model_merged" plus dtype "q8" (which adds "_quantized").
+// There's no plain model_quantized.onnx in that repo. Check the repo's onnx/ folder when changing models.
+const MODEL_FILE = "decoder_model_merged";
+const MODEL_DTYPE = "q8";
 
 export function realModel() {
   let tf, tokenizer, model;
@@ -41,6 +45,7 @@ export function realModel() {
 
       tokenizer = await tf.AutoTokenizer.from_pretrained(MODEL_ID, { progress_callback });
       model = await tf.AutoModelForCausalLM.from_pretrained(MODEL_ID, {
+        model_file_name: MODEL_FILE,
         dtype: MODEL_DTYPE,
         device: "wasm",
         progress_callback,

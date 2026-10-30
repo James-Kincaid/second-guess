@@ -67,11 +67,12 @@ async function start(model) {
     });
   } catch (err) {
     console.error(err);
-    $("load-msg").textContent =
+    $("load-msg").innerHTML =
       "The model didn't load. It may be a network problem, or this browser may not support it. " +
-      "You can still try the practice model.";
+      "You can try again or play the practice model." +
+      `<span class="error">Details: ${escapeHTML(String(err?.message ?? err))}</span>`;
     $("meter").hidden = true;
-    $("practice").disabled = false;
+    $("load").disabled = $("practice").disabled = false;
     return;
   }
   $("loader").hidden = true;

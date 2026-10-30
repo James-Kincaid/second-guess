@@ -183,6 +183,8 @@ details > p { padding: 0 var(--s5) var(--s4); margin: 0; }
 .panel { padding: var(--s5); margin-top: var(--s6); }
 .panel p:last-of-type { margin-bottom: 0; }
 
+.error { display: block; margin-top: var(--s3); color: var(--limestone-dim); font-size: 1rem; overflow-wrap: anywhere; }
+
 /* download meter: a pixel bar that fills in 4px steps */
 .meter { height: var(--s4); background: var(--dusk-hi); margin-top: var(--s4); }
 .meter-fill { height: 100%; width: 0; background: var(--gold); }

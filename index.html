@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Second Guess</title>
+  <meta name="description" content="Bet on what a small language model will say next. A game about how AI writes, one piece at a time.">
+  <meta name="theme-color" content="#1E1A36">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/townie-pixel.woff" as="font" type="font/woff" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="js/ui.js"></script>
+</head>
+<body>
+  <header class="top wrap">
+    <a class="brand" href="/"><img src="icons/mark.svg" alt="" width="32" height="32"><span>Nick Kincaid</span></a>
+  </header>
+
+  <main class="wrap">
+    <h1>Second Guess</h1>
+    <p class="tagline">Bet on what the machine says next.</p>
+    <p>An AI language model writes one small piece at a time. For each piece, it weighs every option it knows and then rolls loaded dice. You get 100 chips. Spread them on where you think the dice will land.</p>
+
+    <!-- loading -->
+    <section id="loader" class="panel frame" aria-live="polite">
+      <p id="load-msg">The model runs on your device. The first load downloads roughly 130 MB, and your browser keeps it after that.</p>
+      <div class="meter" id="meter" hidden><div class="meter-fill" id="meter-fill"></div></div>
+      <div class="links">
+        <button class="button" id="load">Load the model</button>
+        <button class="button quiet" id="practice">Try the practice model</button>
+      </div>
+    </section>
+
+    <!-- the game -->
+    <section id="game" hidden>
+      <div class="status">
+        <p><span class="label">Score</span> <span class="num" id="score">0</span></p>
+        <p><span class="label">Word</span> <span class="num" id="round">1/4</span></p>
+        <p class="heat"><span class="label">Heat</span> <span class="num" id="heat">0.7</span>
+          <span class="heat-bar" id="heat-bar" aria-hidden="true"></span></p>
+      </div>
+      <p class="heat-note" id="heat-note"></p>
+
+      <div class="story frame"><p id="story"></p></div>
+
+      <section class="board frame" aria-labelledby="board-title">
+        <h3 id="board-title">Where will the dice land?</h3>
+        <p class="hint" id="board-hint">Tap + to place chips. A dot means the piece starts with a space.</p>
+        <ul class="bets" id="bets"></ul>
+        <div class="board-foot" id="bet-controls">
+          <p class="left" id="left" aria-live="polite"></p>
+          <div class="links">
+            <button class="button" id="roll" disabled>Roll the dice</button>
+            <button class="button quiet" id="even">Spread evenly</button>
+            <button class="button quiet" id="clear">Clear</button>
+          </div>
+        </div>
+        <div class="result" id="result" hidden aria-live="polite">
+          <div id="result-text"></div>
+          <div class="links"><button class="button" id="next">Next word</button></div>
+        </div>
+      </section>
+
+      <p class="model-note" id="model-note"></p>
+    </section>
+
+    <h2>How it works</h2>
+    <details class="frame">
+      <summary>What is the model actually doing?</summary>
+      <p>It reads the text so far and gives every piece of text it knows a score: how likely that piece is to come next. Then it picks one at random, weighted by those scores. That's the whole trick, repeated one piece at a time.</p>
+    </details>
+    <details class="frame">
+      <summary>Why are some choices only part of a word?</summary>
+      <p>Models don't read whole words. They read tokens: common words, chunks of longer words, and punctuation. "Unbelievable" might be three tokens. A dot at the start of a choice means it begins with a space, which makes it a new word.</p>
+    </details>
+    <details class="frame">
+      <summary>What is heat?</summary>
+      <p>Heat is what AI builders call temperature. When it's low, the model almost always picks its favorite. When it's high, the odds even out and long shots come in more often. Win a round and the heat goes up. Lose one and it cools off.</p>
+    </details>
+    <details class="frame">
+      <summary>How is the score worked out?</summary>
+      <p>You score more the bigger the share of your chips on the piece the model picked. Spreading evenly scores about zero. Going all in scores big if you're right and loses big if you're wrong. Over time, the best strategy is to bet the way the model really thinks.</p>
+    </details>
+  </main>
+
+  <footer class="site-foot">
+    <div class="wrap">
+      <p><img src="icons/mark.svg" alt="" width="24" height="24">Made in Austin, Texas.</p>
+      <nav aria-label="Site">
+        <a href="/about/">About</a>
+        <a href="/support/">Support</a>
+        <a href="/privacy/">Privacy</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

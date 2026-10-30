@@ -1,0 +1,10 @@
+{
+  "name": "second-guess",
+  "private": true,
+  "type": "module",
+  "description": "Bet on what a small language model will say next. Runs in the browser.",
+  "scripts": {
+    "test": "node --test",
+    "serve": "python3 -m http.server 8000"
+  }
+}

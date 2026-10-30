@@ -4,7 +4,8 @@
   "type": "module",
   "description": "Bet on what a small language model will say next. Runs in the browser.",
   "scripts": {
-    "test": "node --test",
-    "serve": "python3 -m http.server 8000"
+    "vendor": "node tools/fetch-vendor.mjs",
+    "serve": "node tools/serve.mjs",
+    "test": "node --test"
   }
 }

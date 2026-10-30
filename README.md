@@ -13,9 +13,11 @@ The model reads the text so far and scores every token it knows. The board shows
 
 ## Running it
 
+You need [Node.js](https://nodejs.org) (the LTS version). It works the same in PowerShell, Mac Terminal or Linux.
+
 ```
-bash tools/fetch-vendor.sh   # once: copies transformers.js into vendor/ (needs Node)
-python3 -m http.server 8000  # then open http://localhost:8000
+npm run vendor   # once: copies transformers.js into vendor/, then commit vendor/
+npm run serve    # then open http://localhost:8000
 ```
 
 It needs a local server because it uses JavaScript modules; opening the file directly won't work. Add `?practice` to the address to skip the download and play against a made-up model that's good for testing the game.
@@ -37,8 +39,8 @@ js/engine.js        game math: temperature, sampling, scoring, heat (no page cod
 js/models.js        the real model and the practice model
 js/prompts.js       starting lines
 js/ui.js            rendering and buttons
-vendor/             transformers.js and its WebAssembly runtime (from tools/fetch-vendor.sh)
+vendor/             transformers.js and its WebAssembly runtime (from npm run vendor)
 fonts/, icons/      copied from jameskincaid.com
-tools/              fetch-vendor.sh, build_icon.py
+tools/              fetch-vendor.mjs, serve.mjs, build_icon.py
 tests/              node --test
 ```

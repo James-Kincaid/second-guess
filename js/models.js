@@ -11,7 +11,7 @@ import { mulberry32 } from "./engine.js";
 
 // ---------------------------------------------------------------- the real model
 // A small open model running entirely in the visitor's browser through transformers.js.
-// The library lives in vendor/ (see tools/fetch-vendor.sh), so the page loads no code from a CDN.
+// The library lives in vendor/ (filled by npm run vendor), so the page loads no code from a CDN.
 // The model weights still come from Hugging Face on first load; the browser caches them after that.
 export const MODEL_ID = "Xenova/gpt2";
 const MODEL_DTYPE = "q8"; // 8-bit weights: about a quarter the download of full precision
